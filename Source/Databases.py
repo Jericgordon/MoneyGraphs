@@ -154,7 +154,7 @@ class Transaction_database:
 		return dict_to_modify
 
 
-	def process_data_by_time(self) -> None:
+	def process_data_by_time(self,start_month:int,start_Year:int,duration_in_years:int) -> None:
 		self.df = self._original_data.copy(deep=True) #make a deep copy of the df to modify
 		self.df['Trans_Date'] = pd.to_datetime(self.df['Trans_Date'],format="%Y-%m-%d").dt.date #ensure datetime Functionality		
 
@@ -165,13 +165,18 @@ class Transaction_database:
 			costs_by_week[label] = []
 		
 		time_delta = relativedelta(months=+1)
-		years = 5 * 12 #Specifies the timeframe for the graph
+		years = duration_in_years * 12 #Specifies the timeframe for the graph
+
+		day = 1
+		month = start_month
+		year = start_Year
+
 
 		print("----- Processing Data-------")
 
 		#Cycles through everything in the df by date range. It records the raw transactions in a csv
 		for period in range(years):
-			start = datetime.date(2018,7,1) + (time_delta * period)
+			start = datetime.date(year,month,day) + (time_delta * period)
 			end = start + time_delta
 			#start = pd.Timestamp(start)
 			#end = pd.Timestamp(end)
@@ -234,14 +239,6 @@ class Transaction_database:
 		
 		#add data file with totals
 		self.save_with_Totals(f"./{self.package_name}/{file}")
-
-		
-
-		
-
-
-
-
 
 
 	def getDF(self) -> object:
