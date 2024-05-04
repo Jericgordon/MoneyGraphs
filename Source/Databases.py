@@ -21,7 +21,7 @@ class Transaction_database:
 		self.rename_categories_bool = False
 		self.level_categories_list = []
 		self.level_categories_list_bool = False
-		self.drop_zero_sum = kwargs["drop_zero_zum"] #default should be true
+		self.drop_zero_sum = kwargs["drop_zero_sum"] #default should be true
 		self.verbose = kwargs["verbose"]
 		self.package_name = package_name
 		
@@ -242,7 +242,12 @@ class Transaction_database:
 
 
 	def getDF(self) -> object:
-		self.df.set_index('Trans_Date', inplace=True)
-		return self.df
+		df_copy = copy.deepcopy(self.df)
+		try:
+			df_copy.set_index('Trans_Date', inplace=True)
+		except KeyError:
+			print("Tried to set index, but was not able to.")
+			print("This may error may be ignored")
+		return df_copy
 	
 

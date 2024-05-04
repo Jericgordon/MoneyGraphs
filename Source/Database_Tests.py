@@ -2,9 +2,6 @@ import pandas
 import unittest
 import random
 from Databases import Transaction_database
-
-
-
 import pandas as pd
 import datetime
 
@@ -31,6 +28,7 @@ class Database_Tests(unittest.TestCase):
 
         df = f1.getdf()
         db = Transaction_database("rountine_tests",verbose = False, drop_zero_sum = False)
+        db.add_database(df)
 
         db.process_data_by_time(1,2000,1)
 
