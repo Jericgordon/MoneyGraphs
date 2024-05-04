@@ -35,21 +35,12 @@ class Database_Tests(unittest.TestCase):
         db.getDF()
         dict = db.getDF()
         print(dict)
+        print(dict["category1"][0])
+        print(dict.keys())
+        self.assertEqual(500,dict["category1"][0])
 
-        self.assertEquals(500,dict["category1"])
         
-        
 
-            
-
-
-
-
-
-
-
-
-  #'Trans_Date' 'Label' 'Net-Amount'
 
 
 class Fake_data:
@@ -66,8 +57,8 @@ class Fake_data:
         
         #add transaction to the dictionary
         self.dict["Trans_Date"].append(date)
-        self.dict["Label"].append(date)
-        self.dict["Net-Amount"].append(date)
+        self.dict["Label"].append(category)
+        self.dict["Net-Amount"].append(ammount)
 
 
     def getdf(self):
